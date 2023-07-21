@@ -7,7 +7,7 @@ import sys
 from cookiecutter.main import cookiecutter
 
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_PATH = os.path.join(BASE_PATH, 'cookiecutter_templates')
 
