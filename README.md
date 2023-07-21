@@ -1,22 +1,18 @@
 # Installation
-- Require python >= 3.10
+- Require python >= 3.11
 - using pip
     ```
-    $ pip install coca-tools
+    $ pip install checkmkpluginmaker
     ```
 - using poetry
     ```
-    $ poetry add coca-tools
+    $ poetry add checkmkpluginmaker
     ```
 
 
 # Guide
 - Require: using in global environment
-- create fastapi template with command then fill the questions
+- create new checkmk plugin template with command then fill the questions
     ```
-    $ create-fastapi-app
-    ```
-- create django template with command then fill the questions
-    ```
-    $ create-django-app
+    $ create-cmk-plugin
     ```
