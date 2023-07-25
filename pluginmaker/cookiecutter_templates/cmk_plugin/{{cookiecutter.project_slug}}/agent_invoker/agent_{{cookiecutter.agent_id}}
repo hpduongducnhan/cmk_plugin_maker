@@ -4,15 +4,16 @@
 # -----------------------------
 # Function get params in this case is port, passed via WATO agent rule cunfiguration, hostname and ip addres of host, 
 # for which agent will be invoked 
-#
+import json
+
+
 def agent_myspecal_arguments(params, hostname, ipaddress):
     args = []
     args += ["-H", ipaddress]       # map to host in agent
-    args += ["-C", 'FPTHCM123']     # map to community in agent
-    args += ["-k", params.get('name')]      #  get from UI (wato file) then push to agent parameter name
-    args += ["--w", params['warning']]      #  get from UI (wato file) then push to agent parameter warning
-    args += ["--c", params['critical']]     #  get from UI (wato file) then push to agent parameter critical
-    args += ["--oid", params['oid']]        #  get from UI (wato file) then push to agent parameter oid
+    args += ["-C", params.get('community', 'FPTHCM123')]     # map to community in agent
+    services = params.get('services', [])
+    if services:
+        args += ['-S', json.dumps(services)]
     return args
 
 # -----------------------------

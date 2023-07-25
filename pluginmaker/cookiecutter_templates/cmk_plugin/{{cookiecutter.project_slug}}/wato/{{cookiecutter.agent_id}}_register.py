@@ -6,7 +6,9 @@ from cmk.gui.valuespec import (
     Dictionary,
     Integer,
     TextInput,
-    TextAscii
+    TextAscii,
+    ListOf,
+    Tuple
 )
 from cmk.gui.plugins.wato import (
     IndividualOrStoredPassword,
@@ -19,6 +21,7 @@ from cmk.gui.plugins.wato import (
 #import structure where special agent will be registered
 from cmk.gui.plugins.wato.datasource_programs import RulespecGroupDatasourcePrograms
 
+
 #Some WATO form definition, to ask user for port number
 def _valuespec_special_agent_myspecial():
     return Dictionary(
@@ -26,16 +29,29 @@ def _valuespec_special_agent_myspecial():
         help=_("{{cookiecutter.wato_description}}"),
         optional_keys=[],
         elements=[
-            ("name", TextAscii(title=_("Name displayed on Service check"), default_value="Default")),
-            ("warning", Integer(title=_("Warning threshold"), default_value=-100)),
-            ("critical", Integer(title=_("Critical threshold"), default_value=-150)),
-            (
-                "oid", 
-                TextAscii(
-                    title=_("oid value"), 
-                    default_value='1.3.6.1.4.1.3607.2.30.1.1.1.3.16395.2.10'  # default value, you could change   
+            ( 
+                "services",     # DO NOT CHANGE THIS LINE
+                ListOf(         # DO NOT CHANGE THIS LINE
+                    Dictionary(
+                        title=_("Interface"),   
+                        optional_keys = [],
+                        elements = [        # modify if you need, if bellow lines modified, change in agent code parse_input and handle_service
+                            ("card_name", TextAscii(title = _("Card name"),)),
+                            ("snmp_oid", TextAscii(title=_("SNMP Oid"), default_value="1.3.6.1.4.1.3607.2.30.1.1.1.3.16395.2.10"),),
+                            ("parameters", Tuple(
+                                elements=[
+                                    Integer(title=_("Warning threshold"), default_value=-100),
+                                    Integer(title=_("Critical threshold"), default_value=-150),
+                                    
+                                ]
+                            ))
+                            
+                        ],
+                    ),
+                    help=_("Hello check me"),
+                    title = _("Services"),
                 )
-            ),
+            ),  
         ],
         # Add or remove elements on your need
     )
