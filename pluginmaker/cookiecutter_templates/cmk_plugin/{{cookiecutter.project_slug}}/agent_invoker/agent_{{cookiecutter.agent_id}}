@@ -7,13 +7,13 @@
 import json
 
 
-def agent_myspecal_arguments(params, hostname, ipaddress):
+def agent_myspecal_arguments(params, hostname, ipaddress):    
     args = []
-    args += ["-H", ipaddress]       # map to host in agent
-    args += ["-C", params.get('community', 'FPTHCM123')]     # map to community in agent
     services = params.get('services', [])
     if services:
         args += ['-S', json.dumps(services)]
+    args += ["-H", ipaddress]       # map to host in agent
+    args += ["-C", 'FPTHCM123']     # map to community in agent
     return args
 
 # -----------------------------

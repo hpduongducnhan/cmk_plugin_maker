@@ -34,6 +34,7 @@ dev-undeploy-plugin:
 	rm -rf ${WATO_PATH}/${AGENT_ID}_register.py
 	rm -rf ${PLUGIN_PATH}/service_${AGENT_ID}.py
 
+	omd restart ${SITE}
 
 # create MKP
 # mkp config file should be at var/check_mk/packages (in OMD[site])
