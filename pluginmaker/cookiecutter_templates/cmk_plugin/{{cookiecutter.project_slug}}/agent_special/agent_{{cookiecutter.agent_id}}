@@ -71,26 +71,31 @@ def parse_input():
 
 
 def handle_service(host, community, index, service):
-    name = service.get('name')                  # get this parameter from wato, make sure they are linked
-    snmp_oid = service.get('snmp_oid')          # get this parameter from wato, make sure they are linked
-    parameters = service.get('parameters', [])      # get this parameter from wato, make sure they are linked
+    name = service.get('name')              # get this parameter from wato, make sure they are matched
+    snmp_oid = service.get('snmp_oid')      # get this parameter from wato, make sure they are matched
+    warning = service.get('warning', [])    # get this parameter from wato, make sure they are matched
+    critical = service.get('critical', [])  # get this parameter from wato, make sure they are matched
+    
+    # if you need more parameters, 
+    # add more in wato at service.ListOf.Dictionary.elements
+    # then MAKE SURE keys are MATCHED
 
+    # default validations for name and snmp_oid
     if not name:
         make_msg(f'{UNKNOWN}{index}', ERROR, f'Not found name from -> {service}')
         return
     if not snmp_oid:
         make_msg(name, ERROR, f'Not found SNMP oid from -> {service}')
         return
-    if not parameters:
-        make_msg(name, ERROR, f'Not found parameters of warning or critical threshold from-> {service}')
-        return
-    
     name = name.replace(' ', '_')
-    snmp_oid = '.' + snmp_oid
-    warning, critical = parameters          
-    # warning, critical get this parameter from wato, make sure they are linked
-    # if you need more thresholds, add in wato, then add here
+    snmp_oid = '.' + snmp_oid       
 
+
+    # YOUR CODE START HERE
+    # MAKE SURE you using <make_msg> function to send result to plugin
+    # This bellow code is an example
+    # you could remove it then just make_msg to test 
+    # for example make_msg(name, OK, name)
     result = netsnmp.snmpwalk(
         snmp_oid,
         Version=2,

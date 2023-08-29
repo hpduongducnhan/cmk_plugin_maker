@@ -36,7 +36,7 @@ def _valuespec_special_agent_myspecial():
                         title=_("Interface"),
                         optional_keys=[],
                         elements=[        # modify if you need, if bellow lines modified, change in agent code parse_input and handle_service
-                            ("card_name", TextAscii(
+                            ("name", TextAscii(
                                 title=_("Card name"),
                             )),
                             ("snmp_oid", TextAscii(
